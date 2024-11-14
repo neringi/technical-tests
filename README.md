@@ -26,4 +26,7 @@ Wiki data for genes not included (/data/{gene_name}.txt where gene_name is the o
     example:  f'https://rest.uniprot.org/uniprotkb/stream?query=gene:{gene_name}'
 
 ## Screenshot of Mol* showing PDB ID '6W1Y'
+![Capture2](https://github.com/user-attachments/assets/eb7611d3-5502-4553-bdd2-34ba5ee926b1)
+![Capture3](https://github.com/user-attachments/assets/44b80d9a-ba1a-4db8-a3db-4e2c0cf192a5)
+![Capture4](https://github.com/user-attachments/assets/6f27fa6b-7ff4-4067-b672-c03b1ecf60a9)
 ![Capture](https://github.com/user-attachments/assets/d4b00d6e-9086-4dd1-ae77-368f5438330f)
