@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Gene</title>
+</head>
+<body>
+    <h1>Search for a Gene</h1>
+    <!-- Updated form action to point to the home route ('/') since that's where your search route is defined -->
+    <form action="/" method="POST">
+        <label for="gene_name">Gene Name:</label>
+        <input type="text" id="gene_name" name="gene_name" required>
+        <button type="submit">Search</button>
+    </form>
+
+    <!-- Check if gene_info is available and display it -->
+    {% if gene_info %}
+        <h2>Gene Information</h2>
+        <p><strong>Gene Name:</strong> {{ gene_info.gene }}</p>
+        <p><strong>PDB IDs:</strong> {{ gene_info.pdb_ids | join(', ') }}</p>
+        <!-- Link to the first PDB entry if it exists -->
+        {% if gene_info.pdb_ids %}
+            <p><a href="{{ url_for('view_pdb', gene_name=gene_info.gene, pdb_id=gene_info.pdb_ids[0]) }}">View First PDB ID: {{ gene_info.pdb_ids[0] }}</a></p>
+        {% endif %}
+    {% endif %}
+</body>
+</html>
