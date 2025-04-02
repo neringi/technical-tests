@@ -3,6 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Album } from './album.entity'; 
 import { Song } from './song.entity'; 
+import { CreateAlbumDto } from './dto/create-album.dto';
+
 
 @Injectable()
 export class MusicService {
@@ -34,4 +36,9 @@ export class MusicService {
     }
   }
   
+  // Create a new album
+  async createAlbum(createAlbumDto: CreateAlbumDto): Promise<Album> {
+    const album = this.albumRepository.create(createAlbumDto);
+    return await this.albumRepository.save(album);
+  }
 }

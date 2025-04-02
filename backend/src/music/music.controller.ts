@@ -1,7 +1,9 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Post, Body, Get } from '@nestjs/common';
 import { MusicService } from './music.service'; 
 import { Album } from './album.entity'; 
 import { Song } from './song.entity'; 
+import { CreateAlbumDto } from './dto/create-album.dto';
+
 
 @Controller('music') 
 export class MusicController {
@@ -18,4 +20,10 @@ export class MusicController {
   async getSongs(): Promise<Song[]> {
     return this.musicService.getAllSongs(); 
   }
+
+  @Post('albums')
+  async createAlbum(@Body() createAlbumDto: CreateAlbumDto): Promise<Album> {
+    return await this.musicService.createAlbum(createAlbumDto);
+  }
 }
+
