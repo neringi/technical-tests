@@ -39,7 +39,11 @@ psql postgres
 
 ## Dependencies
 
-We will use TypeORM.
+Ensure to install correct packages in the right folder
+
+### Backend
+
+We will use TypeORM in backend.
 
 ```bash
 npm install @nestjs/typeorm typeorm pg dotenv
@@ -48,6 +52,8 @@ npm install @types/node --save-dev
 npm install class-validator class-transformer
 
 ```
+
+#### .env file
 
 Will need `.env` file created in `/backend` that contains environment variables:
 ```
@@ -58,4 +64,19 @@ DATABASE_PASSWORD=[db_password]
 DATABASE_NAME=[db_name]
 ```
 
+### Frontend
+
+```bash
+npm install react-icons
+
+```
+
+#### .env file
+
+Will need `.env` file created in `/frontend` that contains environment variables:
+
+```
+VITE_API_URL=[API_url]
+
+```
 

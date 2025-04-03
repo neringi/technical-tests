@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, NotFoundException } from '@nestjs/common';
 import { MusicService } from './music.service'; 
 import { Album } from './album.entity'; 
 import { Song } from './song.entity'; 
@@ -21,9 +21,22 @@ export class MusicController {
     return this.musicService.getAllSongs(); 
   }
 
+  // Create an Album
   @Post('albums')
   async createAlbum(@Body() createAlbumDto: CreateAlbumDto): Promise<Album> {
     return await this.musicService.createAlbum(createAlbumDto);
+  }
+
+  // Get songs for a specific album
+  @Get('albums/:albumId/songs')
+  async getSongsByAlbum(@Param('albumId') albumId: number) {
+    const songs = await this.musicService.getSongsByAlbum(albumId);
+    
+    if (songs.message) {
+      throw new NotFoundException(songs.message); 
+    }
+    
+    return songs;  // Return songs if found
   }
 }
 

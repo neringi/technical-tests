@@ -66,3 +66,103 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+/* Apply dark theme to the entire page */
+body {
+  background-color: #121212;
+  color: #ffffff;
+  font-family: 'Arial', sans-serif; /* Fallback font, replace with Gotham if available */
+  margin: 0;
+  padding: 0;
+}
+
+/* Make sure text color is white for readability */
+h1, h2, h3, h4, h5, h6, p, span {
+  color: #ffffff;
+}
+
+/* Style the header to show Neringify in Gotham font */
+header {
+  text-align: center;
+  padding: 20px;
+  background-color: #181818;
+  font-family: 'Gotham', sans-serif; /* You can replace with a custom Gotham font if available */
+  color: #1DB954;
+  font-size: 2.5rem;
+}
+
+/* Add styling to the album cards */
+.album-card {
+  background-color: #1e1e1e;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 15px;
+  transition: transform 0.2s;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.album-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Album cover styling */
+.album-cover {
+  width: 100%;
+  height: 200px;
+  background-color: #333;
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px;
+}
+
+/* Style the song dropdown */
+.song-dropdown {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Error message for no songs */
+.error-message {
+  color: #1e1e1e;
+  font-size: 1rem;
+  text-align: center;
+}
+
+/* Album details and song information */
+.album-details {
+  margin-top: 10px;
+}
+
+.album-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.album-artist {
+  font-size: 1.2rem;
+  color: #1e1e1e;
+}
+
+.album-genre {
+  font-size: 1rem;
+  color: #1e1e1e;
+}
+
+.song-item {
+  background-color: #333;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.song-title {
+  font-weight: bold;
+}
+
+.song-duration {
+  font-size: 0.9rem;
+  color: #888;
+}
