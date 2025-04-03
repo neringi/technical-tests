@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Album } from './album.entity'; 
@@ -16,15 +16,13 @@ export class MusicService {
     private songRepository: Repository<Song>,
   ) {}
 
-  // Fetch all albums
   async getAllAlbums(): Promise<Album[]> {
-    try {
-      return await this.albumRepository.find();
-    } catch (error) {
-      console.error('Error fetching albums:', error);
-      throw new Error('Failed to fetch albums'); 
-    }
+    return await this.albumRepository.find({
+      relations: ['songs'], // Ensure that songs are included
+      order: { album_name: 'ASC' },
+    });
   }
+  
 
   // Fetch all songs
   async getAllSongs(): Promise<Song[]> {
@@ -40,5 +38,33 @@ export class MusicService {
   async createAlbum(createAlbumDto: CreateAlbumDto): Promise<Album> {
     const album = this.albumRepository.create(createAlbumDto);
     return await this.albumRepository.save(album);
+  }
+
+  // Get songs for an album
+  async getSongsByAlbum(albumId: number): Promise<any> {
+    // Fetch the album by ID to ensure it exists
+    const album = await this.albumRepository.findOne({
+        where: { id: albumId },
+      });
+
+    // If album doesn't exist, throw an exception with 404 status
+    if (!album) {
+      throw new NotFoundException(`Album with ID ${albumId} not found`);
+    }
+
+    const songs = await this.songRepository.find({
+      where: {
+        album: { id: albumId },  
+      },
+      relations: ['album'],  
+      order: { title: 'ASC' }, 
+    });
+
+    // If no songs are found, return a "Not found" message
+    if (songs.length === 0) {
+      return { message: 'No songs found for this album' };
+    }
+
+    return songs;
   }
 }
