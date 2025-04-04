@@ -12,7 +12,7 @@ describe('MusicController', () => {
     controller = module.get<MusicController>(MusicController);
   });
 
-  it('should be defined', () => {
+  it('to be defined', () => {
     expect(controller).toBeDefined();
   });
 });

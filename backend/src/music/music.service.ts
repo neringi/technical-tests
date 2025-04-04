@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { Album } from './album.entity'; 
 import { Song } from './song.entity'; 
 import { CreateAlbumDto } from './dto/create-album.dto';
+import { CreateSongDto } from './dto/create-song.dto';
 
 
 @Injectable()
@@ -66,5 +67,23 @@ export class MusicService {
     }
 
     return songs;
+  }
+
+
+  // Create a song with existing album id
+  async createSong(albumId: number, createSongDto: CreateSongDto): Promise<Song | null> {
+    const album = await this.albumRepository.findOne({ where: { id: albumId } });
+
+    if (!album) {
+        throw new NotFoundException(`Album with ID ${albumId} not found`);
+    }
+
+    const song = this.songRepository.create({
+      title: createSongDto.title,
+      duration: createSongDto.duration,
+      album,
+    });
+
+    return await this.songRepository.save(song);
   }
 }
