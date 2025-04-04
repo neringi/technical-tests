@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Param, NotFoundException } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, NotFoundException, Delete } from '@nestjs/common';
 import { MusicService } from './music.service'; 
 import { Album } from './album.entity'; 
 import { Song } from './song.entity'; 
@@ -51,5 +51,16 @@ export class MusicController {
      }
      return song;
    }
+
+
+   // Delete song by ID
+   @Delete('songs/:songId')
+   async deleteSong(@Param('songId') songId: number) {
+    const result = await this.musicService.deleteSong(songId);
+    if (!result.affected) {
+      throw new NotFoundException(`Song with ID ${songId} not found`);
+    }
+    return { message: 'Song deleted successfully' };
+  }
 }
 

@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { addSong } from "../api/api";
+import { addSong, deleteSong } from "../api/api"; // Import delete function
 
 interface AlbumCardProps {
   album: { id: number; album_name: string; artist: string; genre: string };
   isExpanded: boolean;
-  songs: { title: string; duration: number }[];
+  songs: { id: number; title: string; duration: number }[]; // Ensure each song has an ID
   error: string | null;
   onToggle: () => void;
-  refreshSongs: (albumId: number) => void;  // Pass refresh function
+  refreshSongs: (albumId: number) => void; 
 }
 
 const AlbumCard: React.FC<AlbumCardProps> = ({ album, isExpanded, songs, error, onToggle, refreshSongs }) => {
@@ -20,7 +20,7 @@ const AlbumCard: React.FC<AlbumCardProps> = ({ album, isExpanded, songs, error, 
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    e.stopPropagation(); // Prevent collapsing
+    e.stopPropagation(); 
 
     try {
       await addSong(album.id, {
@@ -29,9 +29,22 @@ const AlbumCard: React.FC<AlbumCardProps> = ({ album, isExpanded, songs, error, 
       });
       setFormData({ title: "", duration: "" });
       setShowAddSong(false);
-      await refreshSongs(album.id); // Refresh songs after adding
+      await refreshSongs(album.id); 
     } catch (error) {
       alert("Error adding song");
+    }
+  };
+
+  const handleDeleteSong = async (songId: number) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this song?");
+    if (!confirmDelete) return;
+
+    try {
+      await deleteSong(songId); 
+      alert("Song deleted successfully");
+      await refreshSongs(album.id); 
+    } catch (error) {
+      alert("Error deleting song");
     }
   };
 
@@ -49,10 +62,11 @@ const AlbumCard: React.FC<AlbumCardProps> = ({ album, isExpanded, songs, error, 
           {error ? (
             <div className="song-item no-songs">{error}</div>
           ) : songs.length > 0 ? (
-            songs.map((song, index) => (
-              <div key={index} className="song-item">
+            songs.map((song) => (
+              <div key={song.id} className="song-item">
                 <span className="song-title">{song.title}</span>
                 <span className="song-duration">{song.duration} sec</span>
+                <button className="delete-song-button" onClick={() => handleDeleteSong(song.id)}>➖</button> 
               </div>
             ))
           ) : (

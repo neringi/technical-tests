@@ -23,8 +23,14 @@ a:hover {
 }
 
 body {
+  height: 100%;
   margin: 0;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #121212;
+  color: #ffffff;
+  font-family: sans-serif;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
@@ -67,31 +73,27 @@ button:focus-visible {
   }
 }
 
-/* Apply dark theme to the entire page */
 body {
   background-color: #121212;
   color: #ffffff;
-  font-family: 'Arial', sans-serif; /* Fallback font, replace with Gotham if available */
+  font-family: sans-serif; 
   margin: 0;
   padding: 0;
 }
 
-/* Make sure text color is white for readability */
 h1, h2, h3, h4, h5, h6, p, span {
   color: #ffffff;
 }
 
-/* Style the header to show Neringify in Gotham font */
 header {
   text-align: center;
   padding: 20px;
   background-color: #181818;
-  font-family: 'Gotham', sans-serif; /* You can replace with a custom Gotham font if available */
+  font-family: sans-serif; 
   color: #1DB954;
   font-size: 2.5rem;
 }
 
-/* Add styling to the album cards */
 .album-card {
   background-color: #1e1e1e;
   border-radius: 10px;
@@ -107,7 +109,6 @@ header {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 }
 
-/* Album cover styling */
 .album-cover {
   width: 100%;
   height: 200px;
@@ -117,7 +118,6 @@ header {
   border-radius: 8px;
 }
 
-/* Style the song dropdown */
 .song-dropdown {
   margin-top: 15px;
   display: flex;
@@ -125,14 +125,12 @@ header {
   gap: 10px;
 }
 
-/* Error message for no songs */
 .error-message {
   color: #1e1e1e;
   font-size: 1rem;
   text-align: center;
 }
 
-/* Album details and song information */
 .album-details {
   margin-top: 10px;
 }
