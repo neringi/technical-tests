@@ -47,25 +47,32 @@
   }
   
   .song-item {
-    padding: 5px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  }
-  
-  .song-item:last-child {
-    border-bottom: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+    padding: 5px 10px;
+    border-bottom: 1px solid #444;
   }
   
   .song-title {
-    font-weight: bold;
+    flex-grow: 1; 
   }
   
   .song-duration {
-    font-size: 12px;
-    opacity: 0.8;
+    margin-right: 10px; 
+    font-size: 0.9rem;
+    color: #aaa;
   }
   
-  .no-songs {
-    font-style: italic;
+  .delete-song-button {
+    background: none;
+    border: none;
     color: #ff5555;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: color 0.2s;
+    padding: 5px;
   }
+  
+
   

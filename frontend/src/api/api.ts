@@ -31,3 +31,13 @@ export const addSong = async (albumId: number, song: { title: string; duration: 
 
   return response.json();
 };
+
+export const deleteSong = async (songId: number) => {
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+  
+  const response = await fetch(`${API_URL}/music/songs/${songId}`, { method: "DELETE" });
+
+  if (!response.ok) {
+    throw new Error("Failed to delete song");
+  }
+};

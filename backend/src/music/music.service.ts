@@ -86,4 +86,9 @@ export class MusicService {
 
     return await this.songRepository.save(song);
   }
+
+  // Delete song by ID
+  async deleteSong(songId: number) {
+    return await this.songRepository.delete(songId);
+  }
 }
