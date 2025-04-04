@@ -3,7 +3,7 @@ import { MusicService } from './music.service';
 import { Album } from './album.entity'; 
 import { Song } from './song.entity'; 
 import { CreateAlbumDto } from './dto/create-album.dto';
-
+import { CreateSongDto } from './dto/create-song.dto';
 
 @Controller('music') 
 export class MusicController {
@@ -38,5 +38,18 @@ export class MusicController {
     
     return songs;  // Return songs if found
   }
+
+   // Create a new song and associate it with an album
+   @Post('albums/:albumId/addsong')
+   async createSong(
+     @Param('albumId') albumId: number,
+     @Body() createSongDto: CreateSongDto
+   ) {
+     const song = await this.musicService.createSong(albumId, createSongDto);
+     if (!song) {
+       throw new NotFoundException(`Album with ID ${albumId} not found`);
+     }
+     return song;
+   }
 }
 

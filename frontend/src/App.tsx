@@ -1,5 +1,7 @@
 import AddAlbumForm from "./components/AddAlbumForm";
 import AlbumList from "./pages/AlbumList";
+import AddSongForm from "./components/AddSongForm";
+
 
 
 function App() {
@@ -14,6 +16,11 @@ function App() {
         
         <AddAlbumForm />
       </div>
+
+      <div className="flex flex-col items-center p-4">
+        
+        <AddSongForm />
+    </div>
     </>
   );
 }

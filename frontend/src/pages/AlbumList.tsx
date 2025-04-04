@@ -19,46 +19,43 @@ const AlbumList = () => {
       .catch((error) => console.error("Error fetching albums:", error));
   }, []);
 
-  const handleAlbumClick = (albumId: number) => {
+  const handleAlbumClick = async (albumId: number) => {
     if (expandedAlbumId === albumId) {
-      setExpandedAlbumId(null); // Collapse if already expanded
+      setExpandedAlbumId(null); 
       return;
     }
 
     setExpandedAlbumId(albumId);
+    await refreshSongs(albumId);
+  };
 
-    // If songs were already loaded, no need to fetch again
-    if (albumSongs[albumId] !== undefined) return;
-
-    fetch(`${API_URL}/music/albums/${albumId}/songs`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Not Found");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setAlbumSongs((prev) => ({ ...prev, [albumId]: data.length > 0 ? data : [] }));
-        setErrorMessages((prev) => ({ ...prev, [albumId]: data.length === 0 ? "Not Found" : null }));
-      })
-      .catch(() => {
-        setAlbumSongs((prev) => ({ ...prev, [albumId]: [] })); // Always set an array
-        setErrorMessages((prev) => ({ ...prev, [albumId]: "Not Found" }));
-      });
+  const refreshSongs = async (albumId: number) => {
+    try {
+      const response = await fetch(`${API_URL}/music/albums/${albumId}/songs`);
+      if (!response.ok) throw new Error("Not Found");
+      
+      const data = await response.json();
+      setAlbumSongs((prev) => ({ ...prev, [albumId]: data.length > 0 ? data : [] }));
+      setErrorMessages((prev) => ({ ...prev, [albumId]: data.length === 0 ? "Not Found" : null }));
+    } catch {
+      setAlbumSongs((prev) => ({ ...prev, [albumId]: [] }));
+      setErrorMessages((prev) => ({ ...prev, [albumId]: "Not Found" }));
+    }
   };
 
   return (
     <div className="album-list">
-      <h1 className="title">My Music Collection</h1>
+      <h1 className="title">Music Collection</h1>
       <div className="album-grid">
         {albums.map((album) => (
           <AlbumCard
             key={album.id}
             album={album}
             isExpanded={expandedAlbumId === album.id}
-            songs={albumSongs[album.id] || []} // Always an array
+            songs={albumSongs[album.id] || []} 
             error={errorMessages[album.id]}
             onToggle={() => handleAlbumClick(album.id)}
+            refreshSongs={refreshSongs}  
           />
         ))}
       </div>

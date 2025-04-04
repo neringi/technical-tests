@@ -11,5 +11,23 @@ export const addAlbum = async (album: {
     body: JSON.stringify(album),
   });
 
+  if (!response.ok) {
+    throw new Error("Failed to add album");
+  }
+
+  return response.json();
+};
+
+export const addSong = async (albumId: number, song: { title: string; duration: number }) => {
+  const response = await fetch(`${API_URL}/music/albums/${albumId}/addsong`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(song),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to add song");
+  }
+
   return response.json();
 };

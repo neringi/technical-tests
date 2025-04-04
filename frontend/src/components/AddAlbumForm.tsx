@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { addAlbum } from "../api/api";
+import "./AddForm.css";  
 
 const AddAlbumForm = () => {
   const [formData, setFormData] = useState({
@@ -24,9 +25,9 @@ const AddAlbumForm = () => {
   };
 
   return (
-    <div className="p-4 border rounded shadow-md w-96">
-      <h2 className="text-lg font-bold mb-2">Add New Album</h2>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+    <div className="form-container album-form">
+      <h2 className="form-title">Add New Album</h2>
+      <form onSubmit={handleSubmit} className="form-content">
         <input
           type="text"
           name="album_name"
@@ -34,7 +35,7 @@ const AddAlbumForm = () => {
           onChange={handleChange}
           placeholder="Album Name"
           required
-          className="border p-2 rounded"
+          className="input-field form-input"
         />
         <input
           type="text"
@@ -43,7 +44,7 @@ const AddAlbumForm = () => {
           onChange={handleChange}
           placeholder="Artist"
           required
-          className="border p-2 rounded"
+          className="input-field form-input"
         />
         <input
           type="text"
@@ -52,11 +53,11 @@ const AddAlbumForm = () => {
           onChange={handleChange}
           placeholder="Genre"
           required
-          className="border p-2 rounded"
+          className="input-field form-input"
         />
         <button
           type="submit"
-          className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+          className="submit-button form-button"
         >
           Add Album
         </button>

@@ -2,7 +2,7 @@ import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateCol
 import { Song } from './song.entity';
 
 @Entity({ name: 'album', schema: 'music' })
-@Unique(["artist", "album_name"]) // need to have unique artist and album name - purposeful design decision for now that does not handle edge cases like rereleases  
+@Unique(["artist", "album_name"]) // need to have unique artist and album name - purposeful design decision for now that does not handle edge cases like album rereleases  
 export class Album {
   @PrimaryGeneratedColumn()
   id: number;
