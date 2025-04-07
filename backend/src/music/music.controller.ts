@@ -27,7 +27,7 @@ export class MusicController {
     const album =await this.musicService.getAlbumById(albumId);
 
     if (!album) {
-      throw new NotFoundException(`Album with your ${albumId} not found`);
+      throw new NotFoundException(`Album with ID ${albumId} not found`);
     }
     return album;
   }

@@ -1,10 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { MusicController } from './music.controller';
 import { MusicService } from './music.service';
+import { NotFoundException } from '@nestjs/common';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Album } from './album.entity';
 import { Song } from './song.entity';
 import { Repository } from 'typeorm';
+import { CreateAlbumDto } from './dto/create-album.dto';
 
 describe('MusicController', () => {
   let controller: MusicController;
@@ -14,9 +16,9 @@ describe('MusicController', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [MusicController], // Ensure MusicController is in controllers
+      controllers: [MusicController], 
       providers: [
-        MusicService, // Ensure MusicService is provided
+        MusicService, 
         {
           provide: getRepositoryToken(Album),
           useValue: {
@@ -49,6 +51,32 @@ describe('MusicController', () => {
     expect(controller).toBeDefined();
   });
 
+  it('should create an album', async () => {
+    const albumId = 1;
+  const createAlbumDto: CreateAlbumDto = {
+    album_name: 'Test Album',
+    artist: 'Mock Artist',
+    genre: 'Mock Genre',
+  };
+
+  const mockAlbum: Album = {
+    id: albumId,
+    album_name: 'Test Album',
+    artist: 'Mock Artist',
+    genre: 'Mock Genre',
+    created_dt: new Date(),
+    updated_dt: new Date(),
+    songs: [],
+  };
+
+  jest.spyOn(service, 'createAlbum').mockResolvedValue(mockAlbum);
+
+  const result = await controller.createAlbum(createAlbumDto);
+
+  expect(result).toEqual(mockAlbum);
+  });
+
+
   it('should create a song for an album', async () => {
     const albumId = 1;
     const mockAlbum = { id: albumId, album_name: 'Test Album' } as Album;
@@ -65,4 +93,37 @@ describe('MusicController', () => {
 
     expect(result).toEqual(mockSong);
   });
+
+  it('should return an album by id', async () => {
+    const albumId = 1;
+    const mockAlbum: Album = {
+      id: albumId,
+      album_name: 'Test Album',
+      artist: 'Mock Artist',
+      genre: 'Mock Genre',
+      created_dt: new Date(),
+      updated_dt: new Date(),
+      songs: [],
+    };
+  
+    jest.spyOn(service, 'getAlbumById').mockResolvedValue(mockAlbum);
+  
+    const result = await controller.getAlbumById(albumId);
+  
+    expect(result).toEqual(mockAlbum);
+  });
+
+  it('should return all albums', async () => {
+    const mockAlbums: Album[] = [
+      { id: 1, album_name: 'Album 1', artist: 'Artist 1', genre: 'Genre 1', created_dt: new Date(), updated_dt: new Date(), songs: [] },
+      { id: 2, album_name: 'Album 2', artist: 'Artist 2', genre: 'Genre 2', created_dt: new Date(), updated_dt: new Date(), songs: [] },
+    ];
+
+    jest.spyOn(service, 'getAllAlbums').mockResolvedValue(mockAlbums);
+
+    const result = await controller.getAlbums();
+    
+    expect(result).toEqual(mockAlbums); 
+  });
+  
 });
