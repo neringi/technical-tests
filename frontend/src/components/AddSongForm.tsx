@@ -18,15 +18,15 @@ const AddSongForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      // Add new album first
+      
       const albumResponse = await addAlbum({
         album_name: formData.albumName,
         artist: formData.artist,
         genre: formData.genre,
       });
 
-      // Add the new song with the newly created album ID
-      const albumId = albumResponse.id; // Assuming the API responds with the new album's ID
+      
+      const albumId = albumResponse.id;
       await addSong(albumId, {
         title: formData.title,
         duration: parseInt(formData.duration),

@@ -80,3 +80,12 @@ VITE_API_URL=[API_url]
 
 ```
 
+### Tests
+
+#### Running tests
+
+To run tests, cd to `/backend` and run 
+
+```bash
+npm run test
+```
