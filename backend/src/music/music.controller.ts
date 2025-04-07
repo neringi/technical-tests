@@ -21,7 +21,18 @@ export class MusicController {
     return this.musicService.getAllSongs(); 
   }
 
-  // Create an Album
+  // Get album by ID
+  @Get('albums/:albumId')
+  async getAlbumById(@Param('albumId') albumId: number) {
+    const album =await this.musicService.getAlbumById(albumId);
+
+    if (!album) {
+      throw new NotFoundException(`Album with your ${albumId} not found`);
+    }
+    return album;
+  }
+
+  // Create an album
   @Post('albums')
   async createAlbum(@Body() createAlbumDto: CreateAlbumDto): Promise<Album> {
     return await this.musicService.createAlbum(createAlbumDto);

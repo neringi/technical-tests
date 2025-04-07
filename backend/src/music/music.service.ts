@@ -41,14 +41,27 @@ export class MusicService {
     return await this.albumRepository.save(album);
   }
 
-  // Get songs for an album
+  // Get album by ID
+  async getAlbumById(albumId: number): Promise<Album> {
+    const album = await this.albumRepository.findOne({
+      where: { id: albumId },
+      relations: ['songs'],
+    });
+
+    if (!album) {
+      throw new NotFoundException(`Album with ID ${albumId} not found`);
+    }
+
+    return album;
+  }
+
+
   async getSongsByAlbum(albumId: number): Promise<any> {
-    // Fetch the album by ID to ensure it exists
+
     const album = await this.albumRepository.findOne({
         where: { id: albumId },
       });
 
-    // If album doesn't exist, throw an exception with 404 status
     if (!album) {
       throw new NotFoundException(`Album with ID ${albumId} not found`);
     }
