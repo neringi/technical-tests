@@ -1,1 +1,11 @@
+# For Mac
 .DS_store
+
+# Node modules
+**/node_modules/
+
+# Playwright
+**/test-results/
+**/playwright-report/
+**/playwright/.cache/
+
