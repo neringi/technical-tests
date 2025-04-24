@@ -1,0 +1,78 @@
+.album-list {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .album-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .album-card {
+    background: #1db954;
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .album-card:hover {
+    background: #1aa34a;
+  }
+  
+  .album-icon {
+    font-size: 24px;
+  }
+  
+  .album-title {
+    font-weight: bold;
+    font-size: 18px;
+  }
+  
+  .album-artist,
+  .album-genre {
+    font-size: 14px;
+    opacity: 0.8;
+  }
+  
+  .song-dropdown {
+    margin-top: 10px;
+    background: #121212;
+    border-radius: 8px;
+    padding: 10px;
+  }
+  
+  .song-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+    padding: 5px 10px;
+    border-bottom: 1px solid #444;
+  }
+  
+  .song-title {
+    flex-grow: 1; 
+  }
+  
+  .song-duration {
+    margin-right: 10px; 
+    font-size: 0.9rem;
+    color: #aaa;
+  }
+  
+  .delete-song-button {
+    background: none;
+    border: none;
+    color: #ff5555;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: color 0.2s;
+    padding: 5px;
+  }
+  
+
+  
