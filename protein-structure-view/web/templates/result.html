@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gene Search Result</title>
+</head>
+<body>
+    <h1>Search Result</h1>
+    
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% else %}
+        <h2>Gene: {{ gene_name }}</h2>
+        <h3>PDB IDs:</h3>
+        <ul>
+            {% for pdb_id in pdb_ids %}
+                <li><a href="{{ url_for('view_pdb', pdb_id=pdb_id) }}" target="_blank">{{ pdb_id }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <a href="/">Back to Search</a>
+</body>
+</html>

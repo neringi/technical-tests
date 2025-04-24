@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View PDB ID {{ pdb_id }}</title>
+    <style>
+        #viewer-container {
+            width: 100%;
+            height: 600px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gene: {{ gene_name }} Viewing PDB ID: {{ pdb_id }}</h1>
+    <h2>{{ pdb_file }}</h2>
+
+    <!-- Mol* Viewer Container -->
+    <div id="viewer-container"></div>
+
+    <a href="/">Back to Search</a>
+    <!-- <script type="module">
+        import molstar from 'https://cdn.jsdelivr.net/npm/molstar@4.8.0/+esm'
+        </script> -->
+    <!-- Load the MolStar library -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='js/molstar.css') }}" />
+    <script src="{{ url_for('static', filename='js/molstar.js') }}" ></script>
+    
+    <!-- <script src="https://cdn.jsdelivr.net/npm/molstar@4.8.0/build/viewer/molstar.js"></script> -->
+    <script>
+        // console.log(MolStar)
+        console.log('ringo222');
+        // console.log(typeof MolStar);  // Check if MolStar is available
+        console.log('ringo333');
+        // console.log(MolStar);  // Check the MolStar object
+        console.log(molstar)
+        window.onload = async function() {    
+            console.log('MolStar is loaded');
+            const viewer = new molstar.Viewer('viewer-container', {
+                viewportBackground: 'white',
+                theme: { baseColor: 'lightgrey' }
+            });
+
+            // Load the local PDB file served by Flask
+            const pdbFilePath = "{{ pdb_file }}";  // This should be '/pdb/6W1Y.pdb when testing HTR3A'
+            console.log("ringo", pdbFilePath);
+            const fileUrl = `${window.location.protocol}//${window.location.host}{{ pdb_file }}`
+            const response = await fetch(fileUrl);
+            if (!response.ok) {
+                console.error('Failed to fetch PDB file:', response.statusText);
+                return;
+            }
+            
+            const pdbData = await response.text();
+            console.log('PDB File Content:', pdbData.trim());
+            await viewer.loadStructureFromData(pdbData.trim(), 'pdb');
+            // Load the fetched data
+            // await viewer.loadStructureFromData(pdbData.trim(), 'pdb')
+            //     .then(() => console.log('PDB structure loaded successfully'))
+            //     .catch(err => console.error('Error loading PDB structure:', err));
+
+        };
+    </script>
+</body>
+</html>

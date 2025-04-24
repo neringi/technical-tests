@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Molstar Viewer - {{ pbd_id }}</title>
+    <!-- Load MolStar version 4 from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/molstar@4.8.0/build/viewer/molstar.js"></script>
+    <style>
+        #molstar-container {
+            position: absolute;
+        left: 100px;
+        top: 100px;
+        width: 800px;
+        height: 600px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gene: {{ gene_name }} Viewing PDB ID: {{ pdb_id }}</h1>
+    <div id="molstar-container"></div>
+
+    <script>
+    molstar.Viewer.create('molstar-container', {
+        layoutIsExpanded: false,
+        layoutShowControls: false,
+        layoutShowRemoteState: false,
+        layoutShowSequence: true,
+        layoutShowLog: false,
+        layoutShowLeftPanel: true,
+
+        // viewportShowExpand: true,
+        viewportShowSelectionMode: false,
+        viewportShowAnimation: false,
+
+        pdbProvider: 'rcsb',
+        emdbProvider: 'rcsb',
+    }).then(viewer => {
+        const fileUrl = `${window.location.protocol}//${window.location.host}{{ pdb_file }}`
+        viewer.loadStructureFromUrl(fileUrl, 'pdb')
+        // viewer.loadPdb('7bv2');
+        // viewer.loadEmdb('EMD-30210', { detail: 6 });
+    });
+
+
+    </script>
+</body>
+</html>
