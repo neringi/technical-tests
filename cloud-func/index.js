@@ -1,6 +1,7 @@
-const functions = require('@google-cloud/functions-framework');
+// const functions = require('@google-cloud/functions-framework');
 const express = require('express');
 const app = express();
+const port = process.env.PORT || 3000;
 
 app.use(express.json()); // Ensure JSON body parsing
 
@@ -45,4 +46,9 @@ app.all('/', (req, res) => {
   }
 });
 
-functions.http('rollDice', app);
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})
+
+// functions.http('rollDice', app);
